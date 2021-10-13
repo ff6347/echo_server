@@ -4,7 +4,9 @@ use std::net::TcpListener;
 use std::net::TcpStream;
 fn main() {
     let pool = ThreadPool::new(4);
-    let listener = TcpListener::bind("127.0.0.1:4000").unwrap();
+    let port = 4000;
+    let listener = TcpListener::bind(format!("127.0.0.1:{}",port)).unwrap();
+    println!("listening on http://localhost:{}",port);
     for stream in listener.incoming() {
         let stream = stream.unwrap();
         pool.execute(|| {
